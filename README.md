@@ -1,6 +1,6 @@
 # HB_singlecell
 
-Below is a list of files in this package/
+Below is a list of files in this package.
 
 Data files: 
 	1. Lung map (CountMatrix.Rdata): Single Nucleus Multiomic Profiling Reveals Age-Dynamic Regulation of Host Genes Associated with SARS-CoV-2 Infection (GSE161382, Wang et al. );
@@ -24,5 +24,5 @@ Code for simulation:
 	6. DE_pseudo_mean_DESeq2.R: code for running DESeq2 on pseudo bulk data;
 	7. DE_pseudo_mean_edgeR.R: code for running edgeR on pseudo bulk data;
 	8. DE_pseudo_mean_limma.R: code for running limma on pseudo bulk data;
-	9. main_fn.R: hybrid method code implemented in DE_hybrid_info_2.5.R, DE_hybrid_info.R, and DE_hybrid_noninfo.R;
+	9. main_fn.R: hybrid method code implemented in DE_hybrid_info_2.5.R, DE_hybrid_info.R, and DE_hybrid_noninfo.R.
 
