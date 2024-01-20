@@ -1,0 +1,34 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2759
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\froman\fcharset0 Times-Roman;}
+{\colortbl;\red255\green255\blue255;\red255\green255\blue255;\red0\green0\blue0;\red26\green26\blue26;
+}
+{\*\expandedcolortbl;;\cssrgb\c100000\c100000\c100000;\cssrgb\c0\c0\c0;\cssrgb\c13333\c13333\c13333;
+}
+\margl1440\margr1440\vieww26980\viewh16240\viewkind0
+\deftab720
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f0\fs24 \cf0 \expnd0\expndtw0\kerning0
+Data files: \
+	1. Lung map (CountMatrix.Rdata): \cb2 Single Nucleus Multiomic Profiling Reveals Age-Dynamic Regulation of Host Genes Associated with SARS-CoV-2 Infection (GSE161382, Wang et al. )\cb1 \
+	2. IPF scRNA-seq (GSE135893_meta.csv): \AppleTypeServices\AppleTypeServicesF65539 \cb2 Single-cell RNA sequencing reveals profibrotic roles of distinct epithelial and mesenchymal lineages in pulmonary fibrosis (\AppleTypeServices \cf3 \cb1 GSE135893, \AppleTypeServices\AppleTypeServicesF65539 \cf0 \cb2 Habermann et al. )\AppleTypeServices \cb1 \
+	3. IPF bulk RNA-seq (Bulk_IPF_GSE150910.csv): \cf3 Chronic hypersensitivity pneumonitis, an interstitial lung disease with distinct molecular signatures (\cf0 GSE150910, \cf3 Furusawa et al. )\
+	4. Prob_mean.csv: Probability for a cell being an alveolar macrophage cell obtained by HierXGB \
+	5. ind_data_1.csv: pseudo bulk RNA data calculated based on IPF scRNA-seq\cf0 \
+	6. HypoMap (Neuro_normal_chow.RData): \AppleTypeServices\AppleTypeServicesF65539 \cf4 \cb2 HypoMap\'97a unified single-cell gene expression atlas of the murine hypothalamus (\AppleTypeServices \cf3 \cb1 University of Cambridge\'92s Apollo Repository (doi:10.17863/CAM.87955), \AppleTypeServices\AppleTypeServicesF65539 \cf4 \cb2 Steuernagel et al.)\AppleTypeServices \cf0 \cb1 \
+\
+Code for IPF data analysis:\
+	1. info_parallel_modified.R: generate results for genes with informative prior\
+	2. non_info_parallel.R: generate results for genes with  non-informative prior\
+	3. d230203_combine_results_across_genes.Rmd: combine results from info_parallel_modified.R and non_info_parallel.R\
+\
+Code for simulation: \
+	1. DE_hybrid_info_2.5.R: hybrid with informative prior mean of 2.5\
+	2. DE_hybrid_info.R: hybrid with informative prior mean of 5\
+	3. DE_hybrid_noninfo.R: hybrid with non-informative prior\
+	4. DE_MAST.R: code for running MAST\
+	5. DE_nebula.R: code for running nebula\
+	6. DE_pseudo_mean_DESeq2.R: code for running DESeq2 on pseudo bulk data\
+	7. DE_pseudo_mean_edgeR.R: code for running edgeR on pseudo bulk data\
+	8. DE_pseudo_mean_limma.R: code for running limma on pseudo bulk data\
+	9. main_fn.R: hybrid method code implemented in DE_hybrid_info_2.5.R, DE_hybrid_info.R, and DE_hybrid_noninfo.R}

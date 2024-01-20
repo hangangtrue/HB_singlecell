@@ -1,0 +1,84 @@
+---
+title: "Results for Gang"
+output: html_document
+---
+
+
+
+
+
+
+```{r setup, include=FALSE}
+rm(list = ls())
+library(dplyr)
+```
+
+
+
+```{r}
+bulk_match_matrix = readRDS("bulk_match_matrix.rds")
+final_table = data.frame()
+for(i in seq_len(nrow(bulk_match_matrix))){
+# for(i in seq_len(3)){
+  gn = bulk_match_matrix[i, "geneName"]
+  info_res = readRDS(paste0("d230410_info_output_", gn, ".rds"))
+  ninfo_res = readRDS(paste0("ninfo_output_", gn, ".rds"))
+  tmp_mat = matrix(NA, nrow = 5, ncol = 7)
+  colnames(tmp_mat) = c("geneName", "Type",  "Estimate", "Standard_error", "CI_lower", "CI_upper", "p_value")
+  tmp_table = as.data.frame(tmp_mat)
+  tmp_table[,"geneName"] = rep(gn, 5)
+  tmp_table[,"Type"] = c("Freq", "Bayes_ninfo", "Hybrid_ninfo", "Bayes_info", "Hybrid_info")
+  tmp_table[1:3, "Estimate"] = ninfo_res$EST[2,]
+  tmp_table[1:3, "Standard_error"] = ninfo_res$STD[2,]
+  tmp_table[1:3, "CI_lower"] = ninfo_res$EST[2,] - 1.96 * ninfo_res$STD[2,]
+  tmp_table[1:3, "CI_upper"] = ninfo_res$EST[2,] + 1.96 * ninfo_res$STD[2,]
+  tmp_table[1:3, "p_value"] = ninfo_res$pval[2,]
+  tmp_table[4:5, "Estimate"] = info_res$EST[2,2:3]
+  tmp_table[4:5, "Standard_error"] = info_res$STD[2,2:3]
+  tmp_table[4:5, "CI_lower"] = info_res$EST[2,2:3] - 1.96 * info_res$STD[2,2:3]
+  tmp_table[4:5, "CI_upper"] = info_res$EST[2,2:3] + 1.96 * info_res$STD[2,2:3]
+  tmp_table[4:5, "p_value"] = info_res$pval[2,2:3]
+  final_table = rbind(final_table, tmp_table)
+}
+
+write.csv(cbind(data.frame(indx = 1:nrow(final_table)), final_table),
+          "d230410_result_table_7886genes.csv")
+```
+
+
+
+```{r}
+new_tab = read.csv("d230410_result_table_7886genes.csv")
+old_tab = read.csv("result_table_7886genes.csv")
+
+
+new_binfo = new_tab %>% 
+  filter(Type == "Bayes_info") %>% 
+  dplyr::select(geneName, p_value) %>%
+  rename("new_pval"= "p_value")
+old_binfo = old_tab %>% 
+  filter(Type == "Bayes_info")%>% 
+  dplyr::select(geneName, p_value) %>%
+  rename("old_pval"= "p_value")
+bayes_info_pval = new_binfo %>% left_join(old_binfo, by = "geneName")
+# > sum(bayes_info_pval$new_pval < bayes_info_pval$old_pval)
+# [1] 6344
+# > sum(bayes_info_pval$new_pval > bayes_info_pval$old_pval)
+# [1] 271
+
+new_hinfo = new_tab %>% 
+  filter(Type == "Hybrid_info") %>% 
+  dplyr::select(geneName, p_value) %>%
+  rename("new_pval"= "p_value")
+old_hinfo = old_tab %>% 
+  filter(Type == "Hybrid_info")%>% 
+  dplyr::select(geneName, p_value) %>%
+  rename("old_pval"= "p_value")
+hybrid_info_pval = new_hinfo %>% left_join(old_hinfo, by = "geneName")
+# > sum(hybrid_info_pval$new_pval < hybrid_info_pval$old_pval)
+# [1] 7112
+# > sum(hybrid_info_pval$new_pval > hybrid_info_pval$old_pval)
+# [1] 320
+
+```
+
